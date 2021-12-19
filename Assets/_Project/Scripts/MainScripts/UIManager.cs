@@ -58,8 +58,6 @@ public class UIManager : MonoBehaviour
     {
         mainPanel.SetActive(false);
         GameManager.instance._gameState = GameManager.GameState.Started;
-        LevelManager.instance.LevelCompleted();
-
     }
 
 

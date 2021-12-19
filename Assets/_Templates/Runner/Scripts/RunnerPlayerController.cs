@@ -1,67 +1,74 @@
+using DG.Tweening;
+//using MoreMountains.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Dreamteck.Splines;
+using UnityEngine.EventSystems;
 
 public class RunnerPlayerController : MonoBehaviour
 {
     public static RunnerPlayerController instance;
-    Rigidbody rb;
-    Animator animator;
-    public UltimateJoystick joystick;
-    public float rightLimit, leftLimit, verticalSpeed, horizontalSpeed;
-    public bool isStart,isFinish;
+    //public bool isStart,isFinish;
+    public ParticleSystem crashEffect;
 
+    //-----
+    public Rigidbody rb;
+    public Animator animator;
+
+    public Camera fixedCamera;
+
+    public float movementSpeed = 5f;
+    public float slidingSpeed = 8f;
+
+    public bool movementStopper = false, isStart, isFinish;
+
+    //-----
     private void Awake() { if (!instance) { instance = this; } }
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        animator = this.GetComponent<Animator>();
+        crashEffect.Stop();
     }
+
     private void FixedUpdate()
     {
-        if(isStart)
-        {
-           rb.velocity = transform.forward * verticalSpeed;
-           LeftAndRightMove();
-        }
+        if ((GameManager.instance._gameState == GameManager.GameState.Started) && !movementStopper)
+            rb.velocity = new Vector3(-movementSpeed, 0, 0);
     }
 
-    public void AnimatorSetBool(string id, bool value)
-    {
-        animator.SetBool(id, value);
-    }
+    Vector3 firstTouchPos;
+    Vector3 firstPlayerPos;
 
-    public void GameStartAndStop(bool value)
-    {
-        isStart = value;
-        AnimatorSetBool("run", value);
-        joystick.gameObject.SetActive(value);
-        if(!value & isFinish)
-        {
-            AnimatorSetBool("dance", true);
-            rb.velocity = Vector3.zero;
-        }
-    }
-
-    // !!! Oyunu yayinlarken update fonksiyonunu sil. UIManager icinden PlayArea fonksiyonuna GameStartAndStop(true) komutunu ekle.
     private void Update()
     {
-        if (GameManager.instance._gameState == GameManager.GameState.Started && !isFinish)
-            GameStartAndStop(true);
-    }
-    // !!! Oyunu yayinlarken update fonksiyonunu sil. UIManager icinden PlayArea fonksiyonuna GameStartAndStop(true) komutunu ekle.
-
-
-    private void LeftAndRightMove()
-    {
-        if (joystick.HorizontalAxis > 0 && this.transform.localPosition.z !< rightLimit)
+        if (EventSystem.current.currentSelectedGameObject == null && !movementStopper && (GameManager.instance._gameState != GameManager.GameState.GameOver && GameManager.instance._gameState != GameManager.GameState.Win))
         {
-            this.transform.Translate(Vector3.right * joystick.HorizontalAxis * horizontalSpeed * Time.deltaTime);
-        }
-        if (joystick.HorizontalAxis < 0 && this.transform.localPosition.z !> leftLimit)
-        {
-            this.transform.Translate(Vector3.right * joystick.HorizontalAxis * horizontalSpeed * Time.deltaTime);
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (GameManager.instance._gameState == GameManager.GameState.NotStarted)
+                    UIManager.instance.PlayArea();
+
+                firstTouchPos = fixedCamera.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, 1));
+                firstPlayerPos = transform.localPosition;
+
+               // MMVibrationManager.Haptic(HapticTypes.Selection);
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                Vector3 movementVector = fixedCamera.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, 1)) - firstTouchPos;
+
+                float finalXPos = firstPlayerPos.z - movementVector.z * slidingSpeed;
+                finalXPos = Mathf.Clamp(4, -4.3f, finalXPos);
+
+                if (finalXPos < -4.3f)
+                    finalXPos = -4.3f;
+                transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, transform.localPosition.y, finalXPos), Time.fixedDeltaTime * 10f);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+               // MMVibrationManager.Haptic(HapticTypes.LightImpact);
+            }
+
         }
     }
 }

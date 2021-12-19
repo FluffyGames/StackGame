@@ -10,7 +10,7 @@ public class RunnerFinish : MonoBehaviour
         {
             LevelManager.instance.LevelCompleted();
             RunnerPlayerController.instance.isFinish = true;
-            RunnerPlayerController.instance.GameStartAndStop(false);
+            //unnerPlayerController.instance.GameStartAndStop(false);
         }
     }
 }
