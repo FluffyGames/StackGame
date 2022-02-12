@@ -15,6 +15,10 @@ public class RunnerCameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, player.transform.position + offset, sensitivity);
+        Vector3 plyr = player.transform.position; plyr.z = 0; offset.z = 0;
+        Vector3 pos = plyr + offset;
+        pos.z = 16.92f;
+        transform.position = Vector3.Lerp(transform.position, pos, sensitivity);
+        //Debug.Log(pos);
     }
 }

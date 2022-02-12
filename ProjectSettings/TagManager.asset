@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - package
+  - Collider
+  - obstacle
   layers:
   - Default
   - TransparentFX

@@ -20,11 +20,8 @@ public class Stack : MonoBehaviour
     {
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (this.transform.GetChild(i).tag=="package")
-            {
-                childList.Add(this.transform.GetChild(i));
-                this.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
-            }
+            childList.Add(this.transform.GetChild(i));
+            this.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
         }
     }
 

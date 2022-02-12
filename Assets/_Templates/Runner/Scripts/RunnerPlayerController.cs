@@ -9,7 +9,7 @@ public class RunnerPlayerController : MonoBehaviour
 {
     public static RunnerPlayerController instance;
     //public bool isStart,isFinish;
-    public ParticleSystem crashEffect;
+    /*public*/ ParticleSystem crashEffect; // ben kapattým 
 
     //-----
     public Rigidbody rb;
@@ -27,7 +27,7 @@ public class RunnerPlayerController : MonoBehaviour
     private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        crashEffect.Stop();
+        //crashEffect.Stop();  ben kapattým 
     }
 
     private void FixedUpdate()
@@ -58,10 +58,10 @@ public class RunnerPlayerController : MonoBehaviour
                 Vector3 movementVector = fixedCamera.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, 1)) - firstTouchPos;
 
                 float finalXPos = firstPlayerPos.z - movementVector.z * slidingSpeed;
-                finalXPos = Mathf.Clamp(4, -4.3f, finalXPos);
+                finalXPos = Mathf.Clamp(20.2f, 13.8f, finalXPos);
 
-                if (finalXPos < -4.3f)
-                    finalXPos = -4.3f;
+                if (finalXPos < 13.8f)
+                    finalXPos = 13.8f;
                 transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, transform.localPosition.y, finalXPos), Time.fixedDeltaTime * 10f);
             }
             else if (Input.GetMouseButtonUp(0))
