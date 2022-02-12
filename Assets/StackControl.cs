@@ -11,7 +11,7 @@ public class StackControl : MonoBehaviour
     public Transform packageSample;
     public GameObject cargoPoint;
     int abc;
-    public GameObject packageParticle;
+    GameObject packageParticle;
     public bool exit;
     public TextMeshProUGUI coinText;
     bool lerp=false;
@@ -25,6 +25,7 @@ public class StackControl : MonoBehaviour
     }
     private void Update()
     {
+        Debug.Log(childList[childList.Count - 1]);
         if (lerp)
         {
             transform.position = Vector3.Lerp(transform.position,transform.position + new Vector3(2, 0, 0), Time.deltaTime );
@@ -56,8 +57,8 @@ public class StackControl : MonoBehaviour
             coinCount+=50;
             coinText.text = coinCount.ToString();
             a.transform.localScale = packageSample.transform.localScale;
-            //a.name = abc.ToString();
-            //abc++;
+            a.name = abc.ToString();
+            abc++;
 
 
             count++;
@@ -65,7 +66,7 @@ public class StackControl : MonoBehaviour
             {
                 count = 0; loopCount++;
             }
-            Debug.Log("stack : " + count);
+            //Debug.Log("stack : " + count);
 
             yield return new WaitForSeconds(0.25f);
         }
@@ -74,7 +75,7 @@ public class StackControl : MonoBehaviour
     {
         childList[childList.Count - 1].parent = null;
         childList[childList.Count - 1].GetComponent<obstacle>().trail();
-        Debug.Log("jump : "+count);
+        //Debug.Log("jump : "+count);
         if (count==0)
         {    
             if (loopCount==0)
@@ -92,7 +93,7 @@ public class StackControl : MonoBehaviour
             count--;
         }
         childList.RemoveAt(childList.Count - 1);
-        
+
         coinCount += 100;
         coinText.text = coinCount.ToString();
     }
@@ -130,11 +131,13 @@ public class StackControl : MonoBehaviour
     {
         childList.RemoveAt(childList.Count - 1);
         childList[childList.Count - 1].transform.parent = null;
-        count--;
-        childList[childList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+
         childList[childList.Count - 1].GetComponent<Rigidbody>().velocity = Vector3.right * 8;
         childList[childList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
         childList[childList.Count - 1].GetComponent<Collider>().isTrigger = false;
+        childList[childList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+
+
     }
 
 

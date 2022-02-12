@@ -503,7 +503,6 @@ MonoBehaviour:
   stackObject: {fileID: 5944126157001932834, guid: 86a883922fb90224d8c6ea9539dcfcd4, type: 3}
   packageSample: {fileID: 2026471771}
   cargoPoint: {fileID: 1078780908}
-  packageParticle: {fileID: 5944126157001932834, guid: 86a883922fb90224d8c6ea9539dcfcd4, type: 3}
   exit: 0
   coinText: {fileID: 382527601}
   obstacleParticle: {fileID: 0}
