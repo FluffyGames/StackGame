@@ -73,29 +73,37 @@ public class StackControl : MonoBehaviour
     }
     public void jump()
     {
-        childList[childList.Count - 1].parent = null;
-        childList[childList.Count - 1].GetComponent<obstacle>().trail();
-        //Debug.Log("jump : "+count);
-        if (count==0)
-        {    
-            if (loopCount==0)
+        if(childList.Count>4)
+        {
+            childList[childList.Count - 1].parent = null;
+            childList[childList.Count - 1].GetComponent<obstacle>().trail();
+            //Debug.Log("jump : "+count);
+            if (count == 0)
             {
-                count = 1;
+                if (loopCount == 0)
+                {
+                    count = 1;
+                }
+                else
+                {
+                    loopCount--;
+                    count = 3;
+                }
             }
             else
             {
-                loopCount--;
-                count = 3;
+                count--;
             }
+            childList.RemoveAt(childList.Count - 1);
+
+            coinCount += 100;
+            coinText.text = coinCount.ToString();
         }
         else
         {
-            count--;
+            count = 0;
         }
-        childList.RemoveAt(childList.Count - 1);
-
-        coinCount += 100;
-        coinText.text = coinCount.ToString();
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -129,13 +137,14 @@ public class StackControl : MonoBehaviour
     }
     public void packageDrop()
     {
+        Transform deletedObject = childList[childList.Count - 1];
         childList.RemoveAt(childList.Count - 1);
-        childList[childList.Count - 1].transform.parent = null;
+        deletedObject.parent = null;
 
-        childList[childList.Count - 1].GetComponent<Rigidbody>().velocity = Vector3.right * 8;
-        childList[childList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
-        childList[childList.Count - 1].GetComponent<Collider>().isTrigger = false;
-        childList[childList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+        deletedObject.GetComponent<Rigidbody>().velocity = Vector3.right * 8;
+        deletedObject.GetComponent<Rigidbody>().useGravity = true;
+        deletedObject.GetComponent<Collider>().isTrigger = false;
+        deletedObject.GetComponent<Rigidbody>().isKinematic = false;
 
 
     }
