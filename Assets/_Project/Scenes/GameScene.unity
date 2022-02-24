@@ -19206,11 +19206,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7667986556951729751, guid: 7a85554e383c79a458e8e540130b6a77, type: 3}
       propertyPath: field of view
-      value: 90.20872
+      value: 91.49284
       objectReference: {fileID: 0}
     - target: {fileID: 7667986556951729751, guid: 7a85554e383c79a458e8e540130b6a77, type: 3}
       propertyPath: orthographic size
-      value: 8.69186
+      value: 8.888889
       objectReference: {fileID: 0}
     - target: {fileID: 7667986558440818516, guid: 7a85554e383c79a458e8e540130b6a77, type: 3}
       propertyPath: m_RootOrder
@@ -54476,7 +54476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 200014831}
   offset: {x: 0, y: 0, z: 0}
-  sensitivity: 0.025
+  sensitivity: 0.04
 --- !u!4 &2240259295618749866
 Transform:
   m_ObjectHideFlags: 0
@@ -54557,9 +54557,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 78.93224
+  field of view: 91.49284
   orthographic: 0
-  orthographic size: 7.130366
+  orthographic size: 8.888889
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
