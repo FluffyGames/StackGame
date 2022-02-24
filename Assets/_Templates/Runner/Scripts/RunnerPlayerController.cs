@@ -33,7 +33,7 @@ public class RunnerPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if ((GameManager.instance._gameState == GameManager.GameState.Started) && !movementStopper)
-            rb.velocity = new Vector3(-movementSpeed, 0, 0);
+            rb.velocity = new Vector3(-movementSpeed, 0, 0);   
     }
 
     Vector3 firstTouchPos;

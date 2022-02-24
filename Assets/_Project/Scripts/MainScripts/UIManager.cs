@@ -26,17 +26,17 @@ public class UIManager : MonoBehaviour
 
     public void RestartTheScene()
     {
-      //--  MMVibrationManager.Haptic(HapticTypes.Selection);
+        //--  MMVibrationManager.Haptic(HapticTypes.Selection);
 
-        DOTween.KillAll();
-        if(LevelManager.instance.loadSceneTypeIsScene) // sahne sahne yukleme aktif
-        {
-            SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
-        }
-        else // sahne sahne yukleme deaktif
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        //DOTween.KillAll();
+        //if (LevelManager.instance.loadSceneTypeIsScene) // sahne sahne yukleme aktif
+        //{
+        //    SceneManager.LoadScene(PlayerPrefs.GetInt("currentLevel"));
+        //}
+        //else // sahne sahne yukleme deaktif
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
 
     }
 
