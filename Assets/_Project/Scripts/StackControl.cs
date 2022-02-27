@@ -25,7 +25,7 @@ public class StackControl : MonoBehaviour
     public int totalR;
     bool t=true;
     public GameObject obstacleParticle;
-    bool p=true;    
+    bool p=true;
     private void Awake()
     {
         if (!instance)
@@ -75,9 +75,9 @@ public class StackControl : MonoBehaviour
             {
                 count = 0; loopCount++;
             }
-         
 
-
+            
+           
             yield return new WaitForSeconds(0.25f);
         }
     }
@@ -100,6 +100,7 @@ public class StackControl : MonoBehaviour
             coinCount += 100;
             coinText.text = coinCount.ToString();
             coinTextWin.text = coinCount.ToString();
+  
 
         }
         else
@@ -117,16 +118,29 @@ public class StackControl : MonoBehaviour
         {
             CameraShake.instance.DoShakeControl();
             StartCoroutine(crash());
+            
             if (p)
             {
                 packageDrop();
                 p = false;
+            }
+            if (childList.Count == 4)
+            {
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                LevelManager.instance.GameOver();
             }
         }
         if (other.gameObject.tag == "Stickman")
         {
             CameraShake.instance.DoShakeControl();
             StartCoroutine(crash());
+            if (childList.Count == 4)
+            {
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                LevelManager.instance.GameOver();
+            }
         }
 
     }
@@ -171,6 +185,12 @@ public class StackControl : MonoBehaviour
             coinTextWin.text = coinCount.ToString();
 
             packageCountControl();
+            if (childList.Count == 4)
+            {
+                this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                LevelManager.instance.GameOver();
+            }
         }
         else
         {

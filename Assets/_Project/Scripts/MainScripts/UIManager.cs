@@ -50,8 +50,8 @@ public class UIManager : MonoBehaviour
     public void OpenGameOverPanel()
     {
         gameOverPanel.SetActive(true);
-       // gameOverPanel.GetComponent<CanvasGroup>().alpha = 0;
-        //gameOverPanel.GetComponent<CanvasGroup>().DOFade(1f, 1f);
+        gameOverPanel.GetComponent<CanvasGroup>().alpha = 0;
+        gameOverPanel.GetComponent<CanvasGroup>().DOFade(1f, 1f);
     }
 
     public void PlayArea()
@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour
         if(srDebuggerCount>=3)
         {
             CancelInvoke("SrDebuggerReset");
-            SRDebug.Instance.ShowDebugPanel();
+            //SRDebug.Instance.ShowDebugPanel(); hata veriyor
             SrDebuggerReset();
         }
 

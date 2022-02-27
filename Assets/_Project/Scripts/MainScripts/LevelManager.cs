@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
             for (int i = 0; i < levelsParent.transform.childCount; i++)
                 levelsParent.transform.GetChild(i).gameObject.SetActive(false);
 
+
             levelsParent.transform.GetChild(currentLevel).gameObject.SetActive(true);
         }
         
@@ -57,7 +58,7 @@ public class LevelManager : MonoBehaviour
     [Button, BoxGroup("Level Test Settings")]
     public void GameOver()
     {
-        if (GameManager.instance._gameState == GameManager.GameState.Started)
+        if (GameManager.instance._gameState == GameManager.GameState.Started )
         {
             GameManager.instance._gameState = GameManager.GameState.GameOver;
 
